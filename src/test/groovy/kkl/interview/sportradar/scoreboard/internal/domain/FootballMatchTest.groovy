@@ -13,9 +13,10 @@ import static kkl.interview.sportradar.scoreboard.internal.MatchTestConstraints.
 
 class FootballMatchTest extends Specification {
 
-    public static final String TOO_LONG_TEAM__TEST_NAME = "a".repeat(MAX_TEAM_NAME_LENGTH + 1)
+    public static final String TOO_LONG_TEAM_TEST_NAME = "a".repeat(MAX_TEAM_NAME_LENGTH + 1)
     public static final Short UNDEFINED_SCORE = null
     public static final Short TOO_BIG_TEAM_SCORE = MAX_SCORE + 1
+    public static final Short TOO_SMALL_TEAM_SCORE = -1
 
     def 'should not accept incorrect team name'() {
         when:
@@ -41,8 +42,8 @@ class FootballMatchTest extends Specification {
         CORRECT_HOME_TEAM_NAME   | EMPTY_TEXT               | Set.of(UNDEFINED_TEAM_NAME)
         EMPTY_TEXT               | CORRECT_AWAY_TEAM_NAME   | Set.of(UNDEFINED_TEAM_NAME)
         EMPTY_TEXT               | EMPTY_TEXT               | Set.of(UNDEFINED_TEAM_NAME)
-        TOO_LONG_TEAM__TEST_NAME | CORRECT_AWAY_TEAM_NAME   | Set.of(TOO_LONG_TEAM_NAME)
-        CORRECT_HOME_TEAM_NAME   | TOO_LONG_TEAM__TEST_NAME | Set.of(TOO_LONG_TEAM_NAME)
+        TOO_LONG_TEAM_TEST_NAME | CORRECT_AWAY_TEAM_NAME  | Set.of(TOO_LONG_TEAM_NAME)
+        CORRECT_HOME_TEAM_NAME  | TOO_LONG_TEAM_TEST_NAME | Set.of(TOO_LONG_TEAM_NAME)
         CORRECT_HOME_TEAM_NAME   | CORRECT_HOME_TEAM_NAME   | Set.of(SAME_NAME_FOR_TWO_TEAMS)
     }
 
@@ -68,9 +69,9 @@ class FootballMatchTest extends Specification {
         UNDEFINED_SCORE    | UNDEFINED_SCORE    | Set.of(UNDEFINED_TEAM_SCORE)
         ZERO               | UNDEFINED_SCORE    | Set.of(UNDEFINED_TEAM_SCORE)
         UNDEFINED_SCORE    | ZERO               | Set.of(UNDEFINED_TEAM_SCORE)
-        (short) -1         | ZERO               | Set.of(NEGATIVE_SCORE)
-        ZERO               | (short) -1         | Set.of(NEGATIVE_SCORE)
-        (short) -1         | (short) -1         | Set.of(NEGATIVE_SCORE)
+        TOO_SMALL_TEAM_SCORE        | ZERO               | Set.of(NEGATIVE_SCORE)
+        ZERO               | TOO_SMALL_TEAM_SCORE        | Set.of(NEGATIVE_SCORE)
+        TOO_SMALL_TEAM_SCORE       | TOO_SMALL_TEAM_SCORE       | Set.of(NEGATIVE_SCORE)
         TOO_BIG_TEAM_SCORE | ZERO               | Set.of(TOO_BIG_SCORE)
         ZERO               | TOO_BIG_TEAM_SCORE | Set.of(TOO_BIG_SCORE)
         TOO_BIG_TEAM_SCORE | TOO_BIG_TEAM_SCORE | Set.of(TOO_BIG_SCORE)
@@ -95,16 +96,16 @@ class FootballMatchTest extends Specification {
 
     def 'should expose all business rules violations'() {
         when:
-        new FootballMatch(null,
-                null,
-                null,
-                null)
+        new FootballMatch(TOO_LONG_TEAM_TEST_NAME,
+                TOO_LONG_TEAM_TEST_NAME,
+                ZERO,
+                ZERO)
 
         then:
         def exception = thrown(IncorrectNewMatchException)
 
         and:
-        exception.violations.containsAll(List.of(UNDEFINED_TEAM_SCORE, UNDEFINED_TEAM_NAME))
+        exception.violations.containsAll(List.of(SAME_NAME_FOR_TWO_TEAMS, TOO_LONG_TEAM_NAME))
     }
 
     def 'should create match for correct data without rising exceptions'() {

@@ -3,6 +3,7 @@ package kkl.interview.sportradar.scoreboard.internal.service;
 import kkl.interview.sportradar.scoreboard.ScoreboardMatchService;
 import kkl.interview.sportradar.scoreboard.dto.FootballMatchDto;
 import kkl.interview.sportradar.scoreboard.dto.StartNewMatchDto;
+import kkl.interview.sportradar.scoreboard.dto.UpdateMatchScoreDto;
 import kkl.interview.sportradar.scoreboard.internal.domain.FootballMatch;
 import kkl.interview.sportradar.scoreboard.internal.mapper.FootballMatchMapper;
 import kkl.interview.sportradar.scoreboard.internal.repository.FootballMatchRepository;
@@ -18,7 +19,7 @@ public class DefaultScoreboardMatchService implements ScoreboardMatchService {
     private final FootballMatchMapper footballMatchMapper;
     
     @Override
-    public FootballMatchDto startNewMatch(StartNewMatchDto dto) {
+    public FootballMatchDto startNewFootballMatch(StartNewMatchDto dto) {
         requireNonNull(dto);
 
         FootballMatch newFootballMatch = new FootballMatch(dto.homeTeamName(),
@@ -28,5 +29,15 @@ public class DefaultScoreboardMatchService implements ScoreboardMatchService {
 
         return footballMatchMapper.map(
                 repository.save(newFootballMatch));
+    }
+
+    @Override
+    public FootballMatchDto updateFootballMatchScore(UpdateMatchScoreDto dto) {
+        requireNonNull(dto);
+
+        var match = repository.findWithId(dto.matchId());
+        match.changeMatchScore(dto.homeTeamScore(), dto.awayTeamScore());
+
+        return footballMatchMapper.map(match);
     }
 }

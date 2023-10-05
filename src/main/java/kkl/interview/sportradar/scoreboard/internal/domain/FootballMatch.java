@@ -40,10 +40,52 @@ public class FootballMatch {
         assertStateCorrectness();
     }
 
-    private void assertStateCorrectness() {
-        assertThatDataIsDefined();
+    public void changeMatchScore(Short newHomeTeamScore, Short newAwayTeamScore) {
+        assertScoreCorrectness(newHomeTeamScore);
+        assertScoreCorrectness(newAwayTeamScore);
 
+        homeTeamScore = newHomeTeamScore;
+        awayTeamScore = newAwayTeamScore;
+    }
+
+    private void assertStateCorrectness() {
+        assertScoreCorrectness(homeTeamScore);
+        assertScoreCorrectness(awayTeamScore);
+        assertNameCorrectness();
+    }
+
+    private void assertScoreCorrectness(Short score) {
         Set<Violation> violations = new HashSet<>();
+
+        if (isNull(score)) {
+            violations.add(UNDEFINED_TEAM_SCORE);
+            throw new IncorrectNewMatchException(violations);
+        }
+
+        if (score < ZERO) {
+            violations.add(NEGATIVE_SCORE);
+        }
+
+        if (score > MAX_SCORE) {
+            violations.add(TOO_BIG_SCORE);
+        }
+
+        if (score > WORLD_HIGHEST_FOOTBALL_MATCH_SCORE) {
+            System.out.println("WARN: Amount of goals of one team is higher then world Guinness record. Match id:" + id);
+        }
+
+        if (!violations.isEmpty()) {
+            throw new IncorrectNewMatchException(violations);
+        }
+    }
+
+    private void assertNameCorrectness() {
+        Set<Violation> violations = new HashSet<>();
+
+        if (isBlank(homeTeamName) || isBlank(awayTeamName)) {
+            violations.add(UNDEFINED_TEAM_NAME);
+            throw new IncorrectNewMatchException(violations);
+        }
 
         if (homeTeamName.length() > MAX_TEAM_NAME_LENGTH || awayTeamName.length() > MAX_TEAM_NAME_LENGTH) {
             violations.add(TOO_LONG_TEAM_NAME);
@@ -53,36 +95,9 @@ public class FootballMatch {
             violations.add(SAME_NAME_FOR_TWO_TEAMS);
         }
 
-        if (homeTeamScore < ZERO || awayTeamScore < ZERO) {
-            violations.add(NEGATIVE_SCORE);
-        }
-
-        if (homeTeamScore > MAX_SCORE || awayTeamScore > MAX_SCORE) {
-            violations.add(TOO_BIG_SCORE);
-        }
-
-        if (homeTeamScore > WORLD_HIGHEST_FOOTBALL_MATCH_SCORE || awayTeamScore > WORLD_HIGHEST_FOOTBALL_MATCH_SCORE) {
-            System.out.println("WARN: Amount of goals of one team is higher then world Guinness record. Match id:" + id);
-        }
-
-        if(! violations.isEmpty()) {
+        if (!violations.isEmpty()) {
             throw new IncorrectNewMatchException(violations);
         }
     }
 
-    private void assertThatDataIsDefined() {
-        Set<Violation> violations = new HashSet<>();
-
-        if (isBlank(homeTeamName) || isBlank(awayTeamName)) {
-            violations.add(UNDEFINED_TEAM_NAME);
-        }
-
-        if (isNull(homeTeamScore) || isNull(awayTeamScore)) {
-            violations.add(UNDEFINED_TEAM_SCORE);
-        }
-
-        if(! violations.isEmpty()) {
-            throw new IncorrectNewMatchException(violations);
-        }
-    }
 }

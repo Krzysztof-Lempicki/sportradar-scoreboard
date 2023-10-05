@@ -1,10 +1,12 @@
 package kkl.interview.sportradar.scoreboard.internal.repository;
 
+import kkl.interview.sportradar.scoreboard.exception.MatchNotFoundException;
 import kkl.interview.sportradar.scoreboard.internal.domain.FootballMatch;
 
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
 public class ConcurrentHashMapFootballMatchRepository implements FootballMatchRepository {
@@ -18,5 +20,15 @@ public class ConcurrentHashMapFootballMatchRepository implements FootballMatchRe
         storage.put(footballMatch.getId(), footballMatch);
 
         return footballMatch;
+    }
+
+    @Override
+    public FootballMatch findWithId(UUID id) throws MatchNotFoundException {
+        requireNonNull(id);
+
+        var result = storage.get(id);
+        if(isNull(result)) throw new MatchNotFoundException(id);
+
+        return result;
     }
 }

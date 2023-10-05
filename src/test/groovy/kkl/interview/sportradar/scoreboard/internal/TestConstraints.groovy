@@ -2,5 +2,5 @@ package kkl.interview.sportradar.scoreboard.internal
 
 class TestConstraints {
 
-    public static final int WAS_CALLED_ONCE = 1
+    public static final int ONE = 1
 }
