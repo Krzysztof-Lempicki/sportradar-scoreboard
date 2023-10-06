@@ -1,6 +1,6 @@
 package kkl.interview.sportradar.scoreboard.internal.service
 
-import kkl.interview.sportradar.scoreboard.ScoreboardMatchSummaryService
+import kkl.interview.sportradar.scoreboard.external.ScoreboardMatchSummaryService
 import kkl.interview.sportradar.scoreboard.internal.mapper.DefaultFootballMatchMapper
 import kkl.interview.sportradar.scoreboard.internal.repository.ConcurrentHashMapFootballMatchRepository
 import spock.lang.Specification

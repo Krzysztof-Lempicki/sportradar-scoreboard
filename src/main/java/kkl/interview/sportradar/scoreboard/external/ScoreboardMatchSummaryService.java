@@ -1,6 +1,6 @@
-package kkl.interview.sportradar.scoreboard;
+package kkl.interview.sportradar.scoreboard.external;
 
-import kkl.interview.sportradar.scoreboard.dto.FootballMatchDto;
+import kkl.interview.sportradar.scoreboard.external.dto.FootballMatchDto;
 
 import java.util.List;
 

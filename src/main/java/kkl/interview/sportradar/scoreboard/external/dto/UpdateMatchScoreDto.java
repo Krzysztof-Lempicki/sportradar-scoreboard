@@ -1,4 +1,4 @@
-package kkl.interview.sportradar.scoreboard.dto;
+package kkl.interview.sportradar.scoreboard.external.dto;
 
 import java.util.UUID;
 

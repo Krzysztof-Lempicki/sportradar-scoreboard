@@ -1,9 +1,9 @@
 package kkl.interview.sportradar.scoreboard.internal.domain
 
-import kkl.interview.sportradar.scoreboard.exception.IncorrectNewMatchException
+import kkl.interview.sportradar.scoreboard.external.exception.IncorrectNewMatchException
 import spock.lang.Specification
 
-import static kkl.interview.sportradar.scoreboard.exception.Violation.*
+import static kkl.interview.sportradar.scoreboard.external.exception.Violation.*
 import static kkl.interview.sportradar.scoreboard.internal.AppConstants.EMPTY_TEXT
 import static kkl.interview.sportradar.scoreboard.internal.AppConstants.ZERO
 import static kkl.interview.sportradar.scoreboard.internal.MatchTestConstraints.*

@@ -1,7 +1,7 @@
 package kkl.interview.sportradar.scoreboard.internal.domain;
 
-import kkl.interview.sportradar.scoreboard.exception.IncorrectNewMatchException;
-import kkl.interview.sportradar.scoreboard.exception.Violation;
+import kkl.interview.sportradar.scoreboard.external.exception.IncorrectNewMatchException;
+import kkl.interview.sportradar.scoreboard.external.exception.Violation;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -12,7 +12,7 @@ import java.util.UUID;
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 import static java.util.UUID.randomUUID;
-import static kkl.interview.sportradar.scoreboard.exception.Violation.*;
+import static kkl.interview.sportradar.scoreboard.external.exception.Violation.*;
 import static kkl.interview.sportradar.scoreboard.internal.AppConstants.ZERO;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 

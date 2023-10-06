@@ -1,6 +1,6 @@
 package kkl.interview.sportradar.scoreboard.internal.mapper;
 
-import kkl.interview.sportradar.scoreboard.dto.FootballMatchDto;
+import kkl.interview.sportradar.scoreboard.external.dto.FootballMatchDto;
 import kkl.interview.sportradar.scoreboard.internal.domain.FootballMatch;
 
 import static java.util.Objects.requireNonNull;

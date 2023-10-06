@@ -1,8 +1,8 @@
 package kkl.interview.sportradar.scoreboard.internal.service
 
-import kkl.interview.sportradar.scoreboard.ScoreboardMatchService
-import kkl.interview.sportradar.scoreboard.dto.StartNewMatchDto
-import kkl.interview.sportradar.scoreboard.dto.UpdateMatchScoreDto
+import kkl.interview.sportradar.scoreboard.external.ScoreboardMatchService
+import kkl.interview.sportradar.scoreboard.external.dto.StartNewMatchDto
+import kkl.interview.sportradar.scoreboard.external.dto.UpdateMatchScoreDto
 import kkl.interview.sportradar.scoreboard.internal.domain.FootballMatch
 import kkl.interview.sportradar.scoreboard.internal.mapper.DefaultFootballMatchMapper
 import kkl.interview.sportradar.scoreboard.internal.repository.ConcurrentHashMapFootballMatchRepository

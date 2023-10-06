@@ -1,6 +1,6 @@
 package kkl.interview.sportradar.scoreboard.internal.repository;
 
-import kkl.interview.sportradar.scoreboard.exception.MatchNotFoundException;
+import kkl.interview.sportradar.scoreboard.external.exception.MatchNotFoundException;
 import kkl.interview.sportradar.scoreboard.internal.domain.FootballMatch;
 
 import java.util.UUID;

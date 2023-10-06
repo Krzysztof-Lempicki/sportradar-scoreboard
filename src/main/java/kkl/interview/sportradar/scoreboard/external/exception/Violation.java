@@ -1,4 +1,4 @@
-package kkl.interview.sportradar.scoreboard.exception;
+package kkl.interview.sportradar.scoreboard.external.exception;
 
 public enum Violation {
 

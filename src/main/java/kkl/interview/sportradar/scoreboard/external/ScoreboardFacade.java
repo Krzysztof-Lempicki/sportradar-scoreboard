@@ -1,4 +1,4 @@
-package kkl.interview.sportradar.scoreboard;
+package kkl.interview.sportradar.scoreboard.external;
 
 import kkl.interview.sportradar.scoreboard.internal.mapper.DefaultFootballMatchMapper;
 import kkl.interview.sportradar.scoreboard.internal.mapper.FootballMatchMapper;

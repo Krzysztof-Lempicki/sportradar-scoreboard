@@ -1,7 +1,7 @@
 package kkl.interview.sportradar.scoreboard.internal.service;
 
-import kkl.interview.sportradar.scoreboard.ScoreboardMatchSummaryService;
-import kkl.interview.sportradar.scoreboard.dto.FootballMatchDto;
+import kkl.interview.sportradar.scoreboard.external.ScoreboardMatchSummaryService;
+import kkl.interview.sportradar.scoreboard.external.dto.FootballMatchDto;
 import kkl.interview.sportradar.scoreboard.internal.mapper.FootballMatchMapper;
 import kkl.interview.sportradar.scoreboard.internal.repository.FootballMatchSummaryRepository;
 import lombok.RequiredArgsConstructor;
