@@ -56,4 +56,38 @@ class FootballMatchRepositoryTest extends Specification{
         then:
         result == match
     }
+
+    def 'should not accept undefined id for deletion of match' () {
+        when:
+        repository.delete(null)
+
+        then:
+        thrown(NullPointerException)
+    }
+
+    def 'should delete match from repository' () {
+        given:
+        def match = new FootballMatch(CORRECT_HOME_TEAM_NAME,
+                CORRECT_AWAY_TEAM_NAME,
+                ZERO,
+                ZERO)
+
+        and:
+        def savedMatch = repository.save(match)
+
+        when:
+        repository.delete(savedMatch.getId())
+
+        then:
+        repository.storage.isEmpty()
+    }
+
+    def 'should not rise exception even if match for deletion does not exist' () {
+
+        when:
+        repository.delete(NOT_EXISTING_ID)
+
+        then:
+        notThrown(Exception)
+    }
 }

@@ -31,4 +31,10 @@ public class ConcurrentHashMapFootballMatchRepository implements FootballMatchRe
 
         return result;
     }
+
+    @Override
+    public void delete(UUID matchInProgressId) {
+        requireNonNull(matchInProgressId);
+        storage.remove(matchInProgressId);
+    }
 }

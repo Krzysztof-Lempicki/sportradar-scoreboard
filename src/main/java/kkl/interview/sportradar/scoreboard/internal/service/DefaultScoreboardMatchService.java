@@ -1,6 +1,7 @@
 package kkl.interview.sportradar.scoreboard.internal.service;
 
 import kkl.interview.sportradar.scoreboard.ScoreboardMatchService;
+import kkl.interview.sportradar.scoreboard.dto.FinishMatchInProgressDto;
 import kkl.interview.sportradar.scoreboard.dto.FootballMatchDto;
 import kkl.interview.sportradar.scoreboard.dto.StartNewMatchDto;
 import kkl.interview.sportradar.scoreboard.dto.UpdateMatchScoreDto;
@@ -39,5 +40,11 @@ public class DefaultScoreboardMatchService implements ScoreboardMatchService {
         match.changeMatchScore(dto.homeTeamScore(), dto.awayTeamScore());
 
         return footballMatchMapper.map(match);
+    }
+
+    @Override
+    public void finishFootballMatch(FinishMatchInProgressDto dto) {
+        requireNonNull(dto);
+        repository.delete(dto.matchId());
     }
 }

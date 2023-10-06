@@ -78,4 +78,13 @@ class ScoreboardMatchServiceTest extends Specification {
         then:
         match.getAwayTeamScore() == TWO_GOALS
     }
+
+    def 'should not accept undefined id for match that should be finished' () {
+        when:
+        scoreboardMatchService.finishFootballMatch(null)
+
+        then:
+        thrown(NullPointerException)
+    }
+
 }
