@@ -7,6 +7,7 @@ import spock.lang.Specification
 import static kkl.interview.sportradar.scoreboard.internal.AppConstants.ZERO
 import static kkl.interview.sportradar.scoreboard.internal.MatchTestConstraints.CORRECT_AWAY_TEAM_NAME
 import static kkl.interview.sportradar.scoreboard.internal.MatchTestConstraints.CORRECT_HOME_TEAM_NAME
+import static kkl.interview.sportradar.scoreboard.internal.MatchTestConstraints.DATE_TIME_2001_01_01
 
 class FootballMatchRepositoryTest extends Specification{
 
@@ -45,7 +46,8 @@ class FootballMatchRepositoryTest extends Specification{
         def match = new FootballMatch(CORRECT_HOME_TEAM_NAME,
                 CORRECT_AWAY_TEAM_NAME,
                 ZERO,
-                ZERO)
+                ZERO,
+                DATE_TIME_2001_01_01)
 
         and:
         repository.save(match)
@@ -70,7 +72,8 @@ class FootballMatchRepositoryTest extends Specification{
         def match = new FootballMatch(CORRECT_HOME_TEAM_NAME,
                 CORRECT_AWAY_TEAM_NAME,
                 ZERO,
-                ZERO)
+                ZERO,
+                DATE_TIME_2001_01_01)
 
         and:
         def savedMatch = repository.save(match)

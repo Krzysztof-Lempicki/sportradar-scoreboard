@@ -12,6 +12,7 @@ import spock.lang.Specification
 import static kkl.interview.sportradar.scoreboard.internal.AppConstants.ZERO
 import static kkl.interview.sportradar.scoreboard.internal.MatchTestConstraints.CORRECT_AWAY_TEAM_NAME
 import static kkl.interview.sportradar.scoreboard.internal.MatchTestConstraints.CORRECT_HOME_TEAM_NAME
+import static kkl.interview.sportradar.scoreboard.internal.MatchTestConstraints.DATE_TIME_2001_01_01
 import static kkl.interview.sportradar.scoreboard.internal.TestConstraints.ONE
 
 class ScoreboardMatchServiceTest extends Specification {
@@ -20,7 +21,8 @@ class ScoreboardMatchServiceTest extends Specification {
 
     private FootballMatchRepository repository = new ConcurrentHashMapFootballMatchRepository()
     private ScoreboardMatchService scoreboardMatchService = new DefaultScoreboardMatchService(repository,
-            new DefaultFootballMatchMapper())
+            new DefaultFootballMatchMapper(),
+            new DefaultTimeService())
 
     def 'should create and save new match with default zero-zero score'() {
         given:
@@ -62,7 +64,9 @@ class ScoreboardMatchServiceTest extends Specification {
         def match = new FootballMatch(CORRECT_HOME_TEAM_NAME,
                                     CORRECT_AWAY_TEAM_NAME,
                                     ZERO,
-                                    ZERO)
+                                    ZERO,
+                                    DATE_TIME_2001_01_01
+        )
 
         and:
         repository.save(match)

@@ -4,17 +4,19 @@ import kkl.interview.sportradar.scoreboard.exception.IncorrectNewMatchException;
 import kkl.interview.sportradar.scoreboard.exception.Violation;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.requireNonNull;
 import static java.util.UUID.randomUUID;
 import static kkl.interview.sportradar.scoreboard.exception.Violation.*;
 import static kkl.interview.sportradar.scoreboard.internal.AppConstants.ZERO;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-public class FootballMatch {
+public class FootballMatch implements Comparable<FootballMatch> {
 
     private static final short WORLD_HIGHEST_FOOTBALL_MATCH_SCORE = 149;
     private static final short MAX_TEAM_NAME_LENGTH = 1000;
@@ -30,12 +32,18 @@ public class FootballMatch {
     private Short homeTeamScore;
     @Getter
     private Short awayTeamScore;
+    private final LocalDateTime matchStartTime;
 
-    public FootballMatch(String homeTeamName, String awayTeamName, Short homeTeamScore, Short awayTeamScore) {
+    public FootballMatch(String homeTeamName,
+                         String awayTeamName,
+                         Short homeTeamScore,
+                         Short awayTeamScore,
+                         LocalDateTime matchStartTime) {
         this.homeTeamName = isNull(homeTeamName) ? homeTeamName : homeTeamName.trim();
         this.awayTeamName = isNull(awayTeamName) ? awayTeamName : awayTeamName.trim();
         this.homeTeamScore = homeTeamScore;
         this.awayTeamScore = awayTeamScore;
+        this.matchStartTime = matchStartTime;
 
         assertStateCorrectness();
     }
@@ -52,6 +60,13 @@ public class FootballMatch {
         assertScoreCorrectness(homeTeamScore);
         assertScoreCorrectness(awayTeamScore);
         assertNameCorrectness();
+        assertUpdateTimeCorrectness();
+    }
+
+    private void assertUpdateTimeCorrectness() {
+        if (isNull(matchStartTime)) {
+            throw new IncorrectNewMatchException(Set.of(UNDEFINED_START_TIME));
+        }
     }
 
     private void assertScoreCorrectness(Short score) {
@@ -100,4 +115,23 @@ public class FootballMatch {
         }
     }
 
+    @Override
+    public int compareTo(FootballMatch anotherMatch) {
+        requireNonNull(anotherMatch);
+
+        final int equal =0;
+
+        if(this.equals(anotherMatch)) {
+            return equal;
+        }
+
+        var scoreComparisonResult = Integer.compare(homeTeamScore + awayTeamScore,
+                anotherMatch.homeTeamScore + anotherMatch.awayTeamScore);
+
+        if (scoreComparisonResult != equal) {
+            return scoreComparisonResult;
+        } else {
+            return matchStartTime.compareTo(anotherMatch.matchStartTime);
+        }
+    }
 }

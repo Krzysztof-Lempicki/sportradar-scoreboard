@@ -18,7 +18,8 @@ public class DefaultScoreboardMatchService implements ScoreboardMatchService {
 
     private final FootballMatchRepository repository;
     private final FootballMatchMapper footballMatchMapper;
-    
+    private final TimeService timeService;
+
     @Override
     public FootballMatchDto startNewFootballMatch(StartNewMatchDto dto) {
         requireNonNull(dto);
@@ -26,7 +27,8 @@ public class DefaultScoreboardMatchService implements ScoreboardMatchService {
         FootballMatch newFootballMatch = new FootballMatch(dto.homeTeamName(),
                                                            dto.awayTeamName(),
                                                            ZERO,
-                                                           ZERO);
+                                                           ZERO,
+                                                           timeService.getCurrentTime());
 
         return footballMatchMapper.map(
                 repository.save(newFootballMatch));

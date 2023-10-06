@@ -7,17 +7,19 @@ import spock.lang.Specification
 import static kkl.interview.sportradar.scoreboard.internal.AppConstants.ZERO
 import static kkl.interview.sportradar.scoreboard.internal.MatchTestConstraints.CORRECT_AWAY_TEAM_NAME
 import static kkl.interview.sportradar.scoreboard.internal.MatchTestConstraints.CORRECT_HOME_TEAM_NAME
+import static kkl.interview.sportradar.scoreboard.internal.MatchTestConstraints.DATE_TIME_2001_01_01
 
 class FootballMatchMapperTest extends Specification {
 
-    private FootballMatchMapper mapper = new DefaultFootballMatchMapper();
+    private FootballMatchMapper mapper = new DefaultFootballMatchMapper()
 
     def 'should correctly map data'() {
         given:
         def match = new FootballMatch(CORRECT_HOME_TEAM_NAME,
                 CORRECT_AWAY_TEAM_NAME,
                 ZERO,
-                ZERO
+                ZERO,
+                DATE_TIME_2001_01_01
         )
 
         when:

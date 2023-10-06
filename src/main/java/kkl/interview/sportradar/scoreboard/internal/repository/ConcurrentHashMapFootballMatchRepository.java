@@ -3,13 +3,14 @@ package kkl.interview.sportradar.scoreboard.internal.repository;
 import kkl.interview.sportradar.scoreboard.exception.MatchNotFoundException;
 import kkl.interview.sportradar.scoreboard.internal.domain.FootballMatch;
 
+import java.util.Collection;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
-public class ConcurrentHashMapFootballMatchRepository implements FootballMatchRepository {
+public class ConcurrentHashMapFootballMatchRepository implements FootballMatchRepository, FootballMatchSummaryRepository {
 
     private final ConcurrentHashMap<UUID, FootballMatch> storage = new ConcurrentHashMap<>();
 
@@ -36,5 +37,10 @@ public class ConcurrentHashMapFootballMatchRepository implements FootballMatchRe
     public void delete(UUID matchInProgressId) {
         requireNonNull(matchInProgressId);
         storage.remove(matchInProgressId);
+    }
+
+    @Override
+    public Collection<FootballMatch> getAllMatches() {
+        return storage.values();
     }
 }

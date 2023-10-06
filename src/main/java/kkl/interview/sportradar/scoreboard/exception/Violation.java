@@ -8,5 +8,7 @@ public enum Violation {
 
     UNDEFINED_TEAM_SCORE,
     NEGATIVE_SCORE,
-    TOO_BIG_SCORE
+    TOO_BIG_SCORE,
+
+    UNDEFINED_START_TIME
 }
